@@ -1,12 +1,12 @@
 <template>
   <div>
-    <button @click="oi()">clique</button>
+    <button @click="oi()">clique aqui</button>
     <h1>{{ msg }}</h1>
   </div>
 </template>
 
 <script>
-// import tetris from './tetris'
+// import tetris from './tetris.js'
 export default {
   name: 'Columns',
   props: {
@@ -14,7 +14,7 @@ export default {
   },
   methods: {
     oi(){
-      // console.log("oi, eu sou o goku!")
+      console.log("oi, eu sou o goku!")
     },
   }
 }
