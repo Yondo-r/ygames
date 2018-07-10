@@ -47,9 +47,9 @@ function createMatrix(w, h) {
 function createPiece(type) {
   if (type === 'I') {
     return [
-      [1],
-      [1],
-      [1],
+      [Math.floor(Math.random()* 7)+1 ],
+      [Math.floor(Math.random()* 7)+1 ],
+      [Math.floor(Math.random()* 7)+1 ],
     ];
   }
 }
@@ -171,7 +171,7 @@ function update(time = 0) {
 }
 
 function updateScore() {
-  // document.getElementById('score').innerText = player.score;
+  document.getElementById('score').innerText = player.score;
 }
 
 document.addEventListener('keydown', event => {
