@@ -88,13 +88,17 @@ function merge(arena, player) {
 function rotate(matrix, dir) {
   for (let y = 0; y < matrix.length; ++y) {
     for (let x = 0; x < y; ++x) {
-      [
-        matrix[x][y],
-        matrix[y][x],
-      ] = [
-        matrix[y][x],
-        matrix[x][y],
-      ];
+      for (let z = 0; z < x; ++z) {
+        [
+          matrix[x],
+          matrix[y],
+          matrix[z],
+        ] = [
+          matrix[y],
+          matrix[z],
+          matrix[x],
+        ];
+      }
     }
   }
 
@@ -181,10 +185,9 @@ document.addEventListener('keydown', event => {
     playerMove(1);
   } else if (event.keyCode === 40) {
     playerDrop();
-  } else if (event.keyCode === 81) {
-    playerRotate(-1);
-  } else if (event.keyCode === 87) {
-    playerRotate(1);
+  } else if (event.keyCode === 38) {
+    playerRotate(1)
+    console.log("seta pra cima apertada");
   }
 });
 
@@ -211,4 +214,4 @@ playerReset();
 updateScore();
 update();
 
-// export default tetris;
+export default this.tetris
