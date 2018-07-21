@@ -8,19 +8,17 @@ function arenaSweep() {
   let rowCount = 1;
   // O for abaixo faz uma leitura da matriz do jogo cada vez que uma peça chega ao ponto de colisão
   outer: for (let line = arena.length -1; line > 0; --line) {
-    for (let x = 0; x < (arena[line].length); ++x) {
-      for (let colum = 0; colum < (arena[line].length); colum++){
+    
+      // O valor de x é alterado quando faz ponto 
+      for (let colum = 0; colum < (arena[line].length); ++colum){
         if (arena[line][colum] !== 0 && arena[line][colum] === arena[line][colum+1]){
           console.log("a peça do lado direito tem a mesma cor")
         }
       }
-
-      // O valor de x é alterado quando faz ponto 
-      if (arena[line][x] === 0) {
-        // console.log("passou aqui")
-        continue outer;
-      }
-    }
+        // if (arena[line][x] === 0) {
+        //   continue outer;
+        // }
+    
 
     // const row = arena.splice(line, 1)[0].fill(0);
     // arena.unshift(row);
