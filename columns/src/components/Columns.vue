@@ -6,7 +6,7 @@
 </template>
 
 <script>
-// import tetris from './tetris.js'
+import tetris from './tetris.js'
 export default {
   name: 'Columns',
   props: {

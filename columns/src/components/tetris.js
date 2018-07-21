@@ -4,17 +4,27 @@ const context = canvas.getContext('2d');
 context.scale(20, 20);
 
 function arenaSweep() {
+  console.table(arena)
   let rowCount = 1;
-  outer: for (let y = arena.length -1; y > 0; --y) {
-    for (let x = 0; x < arena[y].length; ++x) {
-      if (arena[y][x] === 0) {
+  // O for abaixo faz uma leitura da matriz do jogo cada vez que uma peça chega ao ponto de colisão
+  outer: for (let line = arena.length -1; line > 0; --line) {
+    for (let x = 0; x < (arena[line].length); ++x) {
+      for (let colum = 0; colum < (arena[line].length); colum++){
+        if (arena[line][colum] !== 0 && arena[line][colum] === arena[line][colum+1]){
+          console.log("a peça do lado direito tem a mesma cor")
+        }
+      }
+
+      // O valor de x é alterado quando faz ponto 
+      if (arena[line][x] === 0) {
+        // console.log("passou aqui")
         continue outer;
       }
     }
 
-    const row = arena.splice(y, 1)[0].fill(0);
-    arena.unshift(row);
-    ++y;
+    // const row = arena.splice(line, 1)[0].fill(0);
+    // arena.unshift(row);
+    // ++line;
 
     player.score += rowCount * 10;
     rowCount *= 2;
@@ -47,9 +57,9 @@ function createMatrix(w, h) {
 function createPiece(type) {
   if (type === 'I') {
     return [
-      [Math.floor(Math.random()* 7)+1 ],
-      [Math.floor(Math.random()* 7)+1 ],
-      [Math.floor(Math.random()* 7)+1 ],
+      [Math.floor(Math.random()* 6)+1 ],
+      [Math.floor(Math.random()* 6)+1 ],
+      [Math.floor(Math.random()* 6)+1 ],
     ];
   }
 }
@@ -86,6 +96,7 @@ function merge(arena, player) {
 }
 
 function rotate(matrix, dir) {
+  // Função que rotaciona as pedras
   for (let y = 0; y < matrix.length; ++y) {
     for (let x = 0; x < y; ++x) {
       for (let z = 0; z < x; ++z) {
@@ -129,6 +140,7 @@ function playerMove(offset) {
 }
 
 function playerReset() {
+  // Função que reseta o jogo
   const pieces = 'I';
   player.matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
   player.pos.y = 0;
@@ -179,6 +191,7 @@ function updateScore() {
 }
 
 document.addEventListener('keydown', event => {
+  // Definição de teclas de ação
   if (event.keyCode === 37) {
     playerMove(-1);
   } else if (event.keyCode === 39) {
@@ -187,22 +200,21 @@ document.addEventListener('keydown', event => {
     playerDrop();
   } else if (event.keyCode === 38) {
     playerRotate(1)
-    console.log("seta pra cima apertada");
   }
 });
 
 const colors = [
+  // cores
   null,
-  '#FF0D72',
-  '#0DC2FF',
-  '#0DFF72',
-  '#F538FF',
-  '#FF8E0D',
-  '#FFE138',
-  '#3877FF',
+  '#0000FF', // Azul
+  '#FFD700', // Amarelo
+  '#008000', // Verde
+  '#FF0000', // Vermelho
+  '#808080', // Cinza
+  '#BA55D3', // Roxo
 ];
 
-const arena = createMatrix(12, 20);
+const arena = createMatrix(6, 18);
 
 const player = {
   pos: {x: 0, y: 0},
@@ -214,4 +226,4 @@ playerReset();
 updateScore();
 update();
 
-export default this.tetris
+export default tetris
