@@ -6,15 +6,74 @@ context.scale(20, 20);
 function arenaSweep() {
   console.table(arena)
   let rowCount = 1;
+  console.log("rowCount ",rowCount);
+  // console.log(score)
   // O for abaixo faz uma leitura da matriz do jogo cada vez que uma peça chega ao ponto de colisão
   outer: for (let line = arena.length -1; line > 0; --line) {
-    
+    var condicao = 1;
       // O valor de x é alterado quando faz ponto 
       for (let colum = 0; colum < (arena[line].length); ++colum){
-        if (arena[line][colum] !== 0 && arena[line][colum] === arena[line][colum+1]){
-          console.log("a peça do lado direito tem a mesma cor")
+        if (arena[line][colum] !== 0 && arena[line][colum] === arena[line][colum+1] && arena[line][colum-1] === arena[line][colum]){
+          if (arena[line][colum] === arena[line][colum+2]){
+            condicao = 2;
+            console.log ("condição", condicao);
+            console.log(arena[line][colum], arena[line][colum+1], arena[line][colum-1], arena[line][colum+2]);
+            somepeca();
+            condicao = 1;
+          }
+          else if(arena[line][colum] === arena[line][colum-2]){
+            condicao = 3;
+            console.log ("condição", condicao);
+            console.log(arena[line][colum], arena[line][colum+1], arena[line][colum-1], arena[line][colum-2]);
+            somepeca();
+            condicao = 1;
+          }
+          else{
+            console.log ("condição", condicao);
+            console.log(arena[line][colum], arena[line][colum+1], arena[line][colum-1]);
+            somepeca();
+          }
+          
+          
+
+          //Se lado somar mais de 2 pontos as peças deverão sumir
+          
+            
+          
+          
+          
+          
+          
+          
+            function somepeca(){
+            console.log ("ponto");
+            if(condicao == 2) {
+              arena[line][colum] = 0;
+              arena[line][colum+1] = 0;
+              arena[line][colum-1] = 0;
+              arena[line][colum+2] = 0;
+              // tapaburaco(arena);
+            }
+            else if (condicao == 3){
+              arena[line][colum] = 0;
+              arena[line][colum+1] = 0;
+              arena[line][colum-1] = 0;
+              arena[line][colum-2] = 0;
+              // tapaburaco(arena);
+            }
+            else{
+              arena[line][colum] = 0;
+              arena[line][colum+1] = 0;
+              arena[line][colum-1] = 0;
+              // tapaburaco(arena);
+              console.log("condicao ",condicao);
+              console.log (arena[line][colum], "arena linha coluna")
+              console.log (arena[line-1][colum], "arena linha coluna -1");
+            }
+          }
         }
       }
+      tapaburaco(arena);
         // if (arena[line][x] === 0) {
         //   continue outer;
         // }
@@ -26,6 +85,23 @@ function arenaSweep() {
 
     player.score += rowCount * 10;
     rowCount *= 2;
+
+    
+  }
+}
+
+function tapaburaco(arena){
+  for (let line = arena.length -1; line > 0; --line){
+    for (let colum = 0; colum < (arena[line].length); ++colum){
+      if (arena[line][colum] === 0 && arena[line-1][colum] !== 0){
+        console.log ("entrou no tapaburaco");
+        console.log(arena[line-1][colum], "arena[line-1][colum]");
+        console.log(arena[line][colum], "arena[line][colum]");
+        arena[line][colum] = arena[line-1][colum];
+        arena[line-1][colum] = 0;
+        console.log ("a peça desceu");
+      }
+    }
   }
 }
 
