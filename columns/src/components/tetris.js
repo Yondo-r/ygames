@@ -4,15 +4,45 @@ const context = canvas.getContext('2d');
 context.scale(20, 20);
 
 function arenaSweep() {
-  console.table(arena)
+
+  function somepeca(){
+    console.log ("ponto");
+    if(condicao == 2) {
+      arena[line][colum] = 0;
+      arena[line][colum+1] = 0;
+      arena[line][colum-1] = 0;
+      arena[line][colum+2] = 0;
+      // tapaburaco(arena);
+    }
+    else if (condicao == 3){
+      arena[line][colum] = 0;
+      arena[line][colum+1] = 0;
+      arena[line][colum-1] = 0;
+      arena[line][colum-2] = 0;
+      // tapaburaco(arena);
+    }
+    else{
+      arena[line][colum] = 0;
+      arena[line][colum+1] = 0;
+      arena[line][colum-1] = 0;
+      // tapaburaco(arena);
+      console.log("condicao ",condicao);
+      console.log (arena[line][colum], "arena linha coluna");
+      console.log (arena[line-1][colum], "arena linha coluna -1");
+    }
+  }
+
+  console.table(arena);
   let rowCount = 1;
   console.log("rowCount ",rowCount);
   // console.log(score)
   // O for abaixo faz uma leitura da matriz do jogo cada vez que uma peça chega ao ponto de colisão
+  
   outer: for (let line = arena.length -1; line > 0; --line) {
     var condicao = 1;
       // O valor de x é alterado quando faz ponto 
       for (let colum = 0; colum < (arena[line].length); ++colum){
+        //pontuação lateral
         if (arena[line][colum] !== 0 && arena[line][colum] === arena[line][colum+1] && arena[line][colum-1] === arena[line][colum]){
           if (arena[line][colum] === arena[line][colum+2]){
             condicao = 2;
@@ -45,32 +75,7 @@ function arenaSweep() {
           
           
           
-            function somepeca(){
-            console.log ("ponto");
-            if(condicao == 2) {
-              arena[line][colum] = 0;
-              arena[line][colum+1] = 0;
-              arena[line][colum-1] = 0;
-              arena[line][colum+2] = 0;
-              // tapaburaco(arena);
-            }
-            else if (condicao == 3){
-              arena[line][colum] = 0;
-              arena[line][colum+1] = 0;
-              arena[line][colum-1] = 0;
-              arena[line][colum-2] = 0;
-              // tapaburaco(arena);
-            }
-            else{
-              arena[line][colum] = 0;
-              arena[line][colum+1] = 0;
-              arena[line][colum-1] = 0;
-              // tapaburaco(arena);
-              console.log("condicao ",condicao);
-              console.log (arena[line][colum], "arena linha coluna")
-              console.log (arena[line-1][colum], "arena linha coluna -1");
-            }
-          }
+            
         }
       }
       tapaburaco(arena);
@@ -273,7 +278,7 @@ document.addEventListener('keydown', event => {
   } else if (event.keyCode === 40) {
     playerDrop();
   } else if (event.keyCode === 38) {
-    playerRotate(1)
+    playerRotate(1);
   }
 });
 
@@ -300,4 +305,4 @@ playerReset();
 updateScore();
 update();
 
-export default tetris
+export default tetris;
